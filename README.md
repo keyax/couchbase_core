@@ -1,7 +1,7 @@
 
 This repository contains the Dockerfiles and configuration scripts for the Official Couchbase Docker images.
 
-
+[![](https://images.microbadger.com/badges/image/keyax/couchbase_core.svg)](https://microbadger.com/images/keyax/couchbase_core "Get your own image badge on microbadger.com")   [![](https://images.microbadger.com/badges/version/keyax/couchbase_core.svg)](https://microbadger.com/images/keyax/couchbase_core "Get your own version badge on microbadger.com")  
 
 If you are a casual user, you probably don't care about this repo, instead you should head over to one of the Couchbase Dockerhub repositories:
 
