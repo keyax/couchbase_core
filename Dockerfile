@@ -21,7 +21,7 @@ LABEL keyax.app.ver "2.1"
 #  net-tools: ifconfig, arp, netstat
 #  numactl: numactl
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -yq \
        runit \
 #       wget \
 #       python-httplib2 \
@@ -44,9 +44,10 @@ ENV PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/in
 RUN groupadd -g 1000 couchbase && useradd couchbase -u 1000 -g couchbase -M
 
 # Install couchbase
-RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
-    echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - && \
-    dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
+RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE \
+    && echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - \
+    && dpkg -i ./$CB_PACKAGE
+#    && rm -f ./$CB_PACKAGE
 
 # Add runit script for couchbase-server
 COPY scripts/run /etc/service/couchbase-server/run
@@ -64,18 +65,26 @@ RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 
 # Add bootstrap script
 COPY scripts/entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["couchbase-server"]
+# ENTRYPOINT ["/entrypoint.sh"]
+# from image arungupta/couchbase-node
+ENTRYPOINT &{["/entrypoint.sh"]}
+# CMD ["couchbase-server"]
+
 
 # 8091: Couchbase Web console, REST/HTTP interface
 # 8092: Views, queries, XDCR
 # 8093: Query services (4.0+)
-# 8094: Full-text Serarch (4.5+)
+# 8094: Full-text Serarch (4.5+)  -----
 # 11207: Smart client library data node access (SSL)
 # 11210: Smart client library/moxi data node access
 # 11211: Legacy non-smart client library data node access
 # 18091: Couchbase Web console, REST/HTTP interface (SSL)
 # 18092: Views, query, XDCR (SSL)
-# 18093: Query services (SSL) (4.0+)
+# 18093: Query services (SSL) (4.0+) -----
 EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
+# from image arungupta/couchbase-node
+# EXPOSE 11207/tcp 11210/tcp 11211/tcp 18091/tcp 18092/tcp 8091/tcp 8092/tcp 8093/tcp
 VOLUME /opt/couchbase/var
+
+COPY scripts/configure-cluster-node.sh /opt/couchbase
+CMD ["/opt/couchbase/configure-cluster-node.sh"]
