@@ -1,5 +1,4 @@
 .gitignore
 
-scripts/
 cluster*.sh
 docker-compose.yml
