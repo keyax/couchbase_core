@@ -50,7 +50,8 @@ RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE \
     && rm -f ./$CB_PACKAGE
 
 # Add runit script for couchbase-server
-COPY scripts/run /etc/service/couchbase-server/
+RUN touch /etc/service/couchbase-server/run
+COPY scripts/run /etc/service/couchbase-server/run
 
 # Add dummy script for commands invoked by cbcollect_info that
 # make no sense in a Docker container
