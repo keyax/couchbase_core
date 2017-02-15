@@ -17,7 +17,7 @@ docker $(docker-machine config consul-machine) run -d --restart=always \
 docker-machine \
   create \
   -d kvm \
-  --virtualbox-disk-size "5000" \
+#  --virtualbox-disk-size "5000" \
   --swarm \
   --swarm-master \
   --swarm-discovery="consul://$(docker-machine ip consul-machine):8500" \
@@ -29,7 +29,7 @@ docker-machine \
 docker-machine \
   create \
   -d kvm \
-  --virtualbox-disk-size "5000" \
+#  --virtualbox-disk-size "5000" \
   --swarm \
   --swarm-discovery="consul://$(docker-machine ip consul-machine):8500" \
   --engine-opt="cluster-store=consul://$(docker-machine ip consul-machine):8500" \
@@ -40,7 +40,7 @@ docker-machine \
 docker-machine \
   create \
   -d kvm \
-  --virtualbox-disk-size "5000" \
+#  --virtualbox-disk-size "5000" \
   --swarm \
   --swarm-discovery="consul://$(docker-machine ip consul-machine):8500" \
   --engine-opt="cluster-store=consul://$(docker-machine ip consul-machine):8500" \
