@@ -46,11 +46,10 @@ RUN groupadd -g 1000 couchbase && useradd couchbase -u 1000 -g couchbase -M
 # Install couchbase
 RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE \
     && echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - \
-    && dpkg -i ./$CB_PACKAGE \
-    && rm -f ./$CB_PACKAGE
+    && dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
 
 # Add runit script for couchbase-server
-RUN touch /etc/service/couchbase-server/run
+# RUN touch /etc/service/couchbase-server/run
 COPY scripts/run /etc/service/couchbase-server/run
 
 # Add dummy script for commands invoked by cbcollect_info that
