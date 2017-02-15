@@ -92,7 +92,8 @@ EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
 VOLUME /opt/couchbase/var
 # Add bootstrap script
 
-COPY scripts/entrypoint.sh scripts/configure-cluster-node.sh/ /
+COPY scripts/entrypoint.sh /
+COPY scripts/configure-cluster-node.sh /
 # ENTRYPOINT ["/entrypoint.sh"]
 # from image arungupta/couchbase-node
 
