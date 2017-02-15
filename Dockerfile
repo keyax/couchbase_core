@@ -48,8 +48,8 @@ RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE \
     && echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - \
     && dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
 
-RUN echo never > /sys/kernel/mm/transparent_hugepage/enabled
-RUN sysctl vm.swappiness=0 && echo vm.swappiness = 0 >> /etc/sysctl.conf 
+RUN echo "never" >> /sys/kernel/mm/transparent_hugepage/enabled
+RUN sysctl vm.swappiness=0 && echo "vm.swappiness = 0" >> /etc/sysctl.conf
 # Add runit script for couchbase-server
 # RUN touch /etc/service/couchbase-server/run
 COPY scripts/run /etc/service/couchbase-server/run
