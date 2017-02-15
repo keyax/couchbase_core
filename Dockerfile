@@ -54,13 +54,7 @@ RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
     echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - && \
     dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
 
-
-# Install couchbase
-# RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE
-# RUN echo "$CB_SHA256 $CB_PACKAGE" | sha256sum -c -
-# RUN dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
-
-# Warning: Transparent hugepages looks to be active and should not be.
+# RedHat Warning: Transparent hugepages looks to be active and should not be.
 # Please look at http://bit.ly/1ZAcLjD as for how to PERMANENTLY alter this setting.
 # RUN echo never > /sys/kernel/mm/transparent_hugepage/enabled
 # Warning: Swappiness is not set to 0.
@@ -82,14 +76,6 @@ RUN ln -s dummy.sh /usr/local/bin/iptables-save && \
 # Fix curl RPATH
 RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 
-# Add bootstrap script
-COPY scripts/entrypoint.sh /
-# ENTRYPOINT ["/entrypoint.sh"]
-# from image arungupta/couchbase-node
-ENTRYPOINT &{["/entrypoint.sh"]}
-# CMD ["couchbase-server"]
-
-
 # 8091: Couchbase Web console, REST/HTTP interface
 # 8092: Views, queries, XDCR
 # 8093: Query services (4.0+)
@@ -104,6 +90,13 @@ EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
 # from image arungupta/couchbase-node
 # EXPOSE 11207/tcp 11210/tcp 11211/tcp 18091/tcp 18092/tcp 8091/tcp 8092/tcp 8093/tcp
 VOLUME /opt/couchbase/var
+# Add bootstrap script
 
-COPY scripts/configure-cluster-node.sh /opt/couchbase
-CMD ["/opt/couchbase/configure-cluster-node.sh"]
+COPY scripts/entrypoint.sh scripts/configure-cluster-node.sh/ /
+# ENTRYPOINT ["/entrypoint.sh"]
+# from image arungupta/couchbase-node
+
+# ENTRYPOINT &{["/entrypoint.sh"]}
+# CMD ["couchbase-server"]
+#COPY scripts/configure-cluster-node.sh /opt/couchbase
+ENTRYPOINT ["/opt/couchbase/configure-cluster-node.sh"]
