@@ -50,9 +50,9 @@ ENV CB_VERSION="4.5.0" \
     LD_LIBRARY_PATH=":/opt/couchbase/lib"
 
 # Install couchbase
-RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE \
-    && echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - \
-    && dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
+RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE
+RUN echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c -
+RUN dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
 
 # Warning: Transparent hugepages looks to be active and should not be.
 # Please look at http://bit.ly/1ZAcLjD as for how to PERMANENTLY alter this setting.
