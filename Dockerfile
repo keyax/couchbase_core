@@ -41,10 +41,8 @@ RUN apt-get update && \
 ENV CB_VERSION="4.5.0" \
     CB_RELEASE_URL="http://packages.couchbase.com/releases" \
     CB_PACKAGE="couchbase-server-enterprise_4.5.0-ubuntu14.04_amd64.deb" \
-    CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633"
-
-ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
-    PATH=":/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" \
+    CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633" \
+    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" \
     LD_LIBRARY_PATH=":/opt/couchbase/lib"
 
 # Create Couchbase user with UID 1000 (necessary to match default
