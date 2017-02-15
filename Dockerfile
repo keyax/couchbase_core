@@ -93,11 +93,11 @@ VOLUME /opt/couchbase/var
 # Add bootstrap script
 
 COPY scripts/entrypoint.sh /
-COPY scripts/configure-cluster-node.sh /
+COPY scripts/configure-cluster-node.sh  /
 # ENTRYPOINT ["/entrypoint.sh"]
 # from image arungupta/couchbase-node
 
-# ENTRYPOINT &{["/entrypoint.sh"]}
-# CMD ["couchbase-server"]
+ENTRYPOINT &{["/entrypoint.sh"]}
+CMD ["couchbase-server"]
 #COPY scripts/configure-cluster-node.sh /opt/couchbase
-ENTRYPOINT ["/configure-cluster-node.sh"]
+# ENTRYPOINT ["/configure-cluster-node.sh"]
