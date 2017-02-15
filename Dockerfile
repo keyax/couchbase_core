@@ -87,18 +87,20 @@ RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 # 18092: Views, query, XDCR (SSL)
 # 18093: Query services (SSL) (4.0+) -----
 EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
-# from image arungupta/couchbase-node
-# EXPOSE 11207/tcp 11210/tcp 11211/tcp 18091/tcp 18092/tcp 8091/tcp 8092/tcp 8093/tcp
-VOLUME /opt/couchbase/var
-# Add bootstrap script
 
+# Add bootstrap script
 COPY scripts/entrypoint.sh /
-# ENTRYPOINT ["/entrypoint.sh"]
-# CMD ["couchbase-server"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["couchbase-server"]
+
+VOLUME /opt/couchbase/var
 COPY scripts/configure-cluster-node.sh  /
-ENTRYPOINT ["/configure-cluster-node.sh"]
+CMD ["/configure-cluster-node.sh"]
+
 # from image arungupta/couchbase-node
 # ENTRYPOINT &{["/entrypoint.sh"]}
-
-#COPY scripts/configure-cluster-node.sh /opt/couchbase
-# ENTRYPOINT ["/configure-cluster-node.sh"]
+# CMD ["couchbase-server"]
+# EXPOSE 11207/tcp 11210/tcp 11211/tcp 18091/tcp 18092/tcp 8091/tcp 8092/tcp 8093/tcp
+# VOLUME /opt/couchbase/var
+# COPY scripts/configure-cluster-node.sh /opt/couchbase
+# CMD ["/opt/couchbase/configure-cluster-node.sh"]
