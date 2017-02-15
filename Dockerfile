@@ -42,17 +42,23 @@ ARG CB_PACKAGE=couchbase-server-community_4.5.0-ubuntu14.04_amd64.deb
 ARG CB_SHA256=7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633
 ENV PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install
 
-ENV CB_VERSION="4.5.0" \
-    CB_RELEASE_URL="http://packages.couchbase.com/releases" \
-    CB_PACKAGE="couchbase-server-enterprise_4.5.0-ubuntu14.04_amd64.deb" \
-    CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633" \
-#    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" \
-    LD_LIBRARY_PATH=":/opt/couchbase/lib"
+# ENV CB_VERSION="4.5.0" \
+#    CB_RELEASE_URL="http://packages.couchbase.com/releases" \
+#    CB_PACKAGE="couchbase-server-enterprise_4.5.0-ubuntu14.04_amd64.deb" \
+#    CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633" \
+#     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" \
+#    LD_LIBRARY_PATH=":/opt/couchbase/lib"
 
 # Install couchbase
-RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE
-RUN echo "$CB_SHA256 $CB_PACKAGE" | sha256sum -c -
-RUN dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
+RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
+    echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - && \
+    dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
+
+
+# Install couchbase
+# RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE
+# RUN echo "$CB_SHA256 $CB_PACKAGE" | sha256sum -c -
+# RUN dpkg -i ./$CB_PACKAGE && rm -f ./$CB_PACKAGE
 
 # Warning: Transparent hugepages looks to be active and should not be.
 # Please look at http://bit.ly/1ZAcLjD as for how to PERMANENTLY alter this setting.
