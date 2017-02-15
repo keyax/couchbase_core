@@ -94,10 +94,10 @@ VOLUME /opt/couchbase/var
 
 COPY scripts/entrypoint.sh /
 COPY scripts/configure-cluster-node.sh  /
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 # from image arungupta/couchbase-node
 
-ENTRYPOINT &{["/entrypoint.sh"]}
+# ENTRYPOINT &{["/entrypoint.sh"]}
 CMD ["couchbase-server"]
 #COPY scripts/configure-cluster-node.sh /opt/couchbase
 # ENTRYPOINT ["/configure-cluster-node.sh"]
