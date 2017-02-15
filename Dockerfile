@@ -99,4 +99,4 @@ COPY scripts/entrypoint.sh scripts/configure-cluster-node.sh/ /
 # ENTRYPOINT &{["/entrypoint.sh"]}
 # CMD ["couchbase-server"]
 #COPY scripts/configure-cluster-node.sh /opt/couchbase
-ENTRYPOINT ["/opt/couchbase/configure-cluster-node.sh"]
+ENTRYPOINT ["/configure-cluster-node.sh"]
