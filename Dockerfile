@@ -3,9 +3,9 @@ FROM keyax/ubuntu_lts
 
 # MAINTAINER Couchbase Docker Team <docker@couchbase.com>
 LABEL maintainer "yones.lebady AT gmail.com"
-LABEL net.keyax.os "ubuntu core"
-LABEL net.keyax.os.ver "14.04 trusty"
-LABEL net.keyax.vendor "Keyax"
+LABEL keyax.os "ubuntu core"
+LABEL keyax.os.ver "14.04 trusty"
+LABEL keyax.vendor "Keyax"
 LABEL keyax.app "Couchbase 4.5.0"
 LABEL keyax.app.ver "2.1"
 
@@ -80,13 +80,14 @@ RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 # 8092: Views, queries, XDCR
 # 8093: Query services (4.0+)
 # 8094: Full-text Serarch (4.5+)  -----
-# 11207: Smart client library data node access (SSL)
+# 11207: Smart client library data node access (SSL) EE
 # 11210: Smart client library/moxi data node access
 # 11211: Legacy non-smart client library data node access
-# 18091: Couchbase Web console, REST/HTTP interface (SSL)
-# 18092: Views, query, XDCR (SSL)
-# 18093: Query services (SSL) (4.0+) -----
-EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
+# 18091: Couchbase Web console, REST/HTTP interface (SSL) EE
+# 18092: Views, query, XDCR (SSL) EE
+# 18093: Query services (SSL) (4.0+) EE-----
+# EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
+EXPOSE 8091 8092 8093 8094 11210 11211
 
 # Add bootstrap script
 COPY scripts/entrypoint.sh /
