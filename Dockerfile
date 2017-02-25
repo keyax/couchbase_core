@@ -60,12 +60,12 @@ RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
 # Please look at http://bit.ly/1ZAcLjD as for how to PERMANENTLY alter this setting.
 # RUN echo never > /sys/kernel/mm/transparent_hugepage/enabled
 # Ubuntu disabling transparent hugepages
-RUN echo kernel/mm/transparent_hugepage/enabled = never > /etc/sysfs.conf
+### RUN echo kernel/mm/transparent_hugepage/enabled = never > /etc/sysfs.conf
 # Warning: Swappiness is not set to 0.
 # Please look at http://bit.ly/1k2CtNn as for how to PERMANENTLY alter this setting.
 # RUN sysctl vm.swappiness=0 && echo "vm.swappiness = 0" >> /etc/sysctl.conf
 # Ubuntu set swappiness 0
-RUN echo 'vm.swappiness = 0' >> /etc/sysctl.conf
+### RUN echo 'vm.swappiness = 0' >> /etc/sysctl.conf
 # Add runit script for couchbase-server
 # RUN touch /etc/service/couchbase-server/run
 COPY scripts/run /etc/service/couchbase-server/run
