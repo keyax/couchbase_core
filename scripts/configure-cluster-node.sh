@@ -14,7 +14,7 @@ curl --fail -v http://127.0.0.1:8091/node/controller/setupServices -d services=k
 curl --fail -v http://127.0.0.1:8091/settings/web -d port=8091 -d username=admin -d password=keyax57
 
 # from image arungupta/couchbase-node
-curl -v -u admin:keyax57 -X POST http://127.0.0.1:8091/sampleBuckets/install -d '["travel-sample"]'
+curl --fail -v -u admin:keyax57 -X POST http://127.0.0.1:8091/sampleBuckets/install -d '["travel-sample"]'
 
 
 fg 1
