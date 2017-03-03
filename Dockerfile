@@ -92,7 +92,7 @@ RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 # 18092: Views, query, XDCR (SSL) EE
 # 18093: Query services (SSL) (4.0+) EE-----
 # EXPOSE 8091 8092 8093 8094 11207 11210 11211 18091 18092 18093
-EXPOSE 8091 8092 8093 8094 11210 11211
+EXPOSE 4984 4985 8091 8092 8093 8094 11210 11211
 VOLUME /opt/couchbase/var
 
 # Add bootstrap script
