@@ -82,7 +82,7 @@ RUN ln -s dummy.sh /usr/local/bin/iptables-save && \
 # Fix curl RPATH
 RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 
-# 8091: Couchbase Web console, REST/HTTP interface
+# 8091: Couchbase Web console,  REST/HTTP interface
 # 8092: Views, queries, XDCR
 # 8093: Query services (4.0+) Workbench 8094
 # 8094: Full-text Serarch (4.5+)  CBFT use Bleve indexer 8095 -----
