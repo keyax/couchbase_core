@@ -34,8 +34,8 @@ RUN apt-get update && \
     && apt-get autoremove && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Create Couchbase user with UID 1000 (necessary to match default boot2docker UID)
-# RUN groupadd -g 1000 couchbase && useradd couchbase -u 1000 -g couchbase -M
+# Create Couchbase user with UID 1000 (necessary to match default boot2docker UID)  
+RUN groupadd -g 1000 couchbase && useradd couchbase -u 1000 -g couchbase -M
 
 # ARG CB_VERSION=4.5.0
 # ARG CB_RELEASE_URL=http://packages.couchbase.com/releases
