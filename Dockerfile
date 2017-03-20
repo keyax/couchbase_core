@@ -49,7 +49,7 @@ ENV CB_VERSION="4.5.0" \
     CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633" \
     LD_LIBRARY_PATH=":/opt/couchbase/lib" \
     CB_PATHS=":/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install"
-ENV PATH=${PATH:+CB_PATHS}
+ENV PATH=${PATH}${CB_PATHS}
 #    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install"
 # PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install
 
