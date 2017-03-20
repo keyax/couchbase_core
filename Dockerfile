@@ -78,7 +78,7 @@ RUN ln -s dummy.sh /usr/local/bin/iptables-save \
  && ln -s dummy.sh /usr/local/bin/vgdisplay \
  && ln -s dummy.sh /usr/local/bin/pvdisplay \
  && echo "export PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" >> /root/.bashrc \
- && /root/.bashrc && echo $PATH \
+# && /root/.bashrc && echo $PATH \
 # Fix curl RPATH
  && chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 
