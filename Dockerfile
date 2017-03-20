@@ -50,8 +50,7 @@ ENV CB_VERSION="4.5.0" \
     LD_LIBRARY_PATH=":/opt/couchbase/lib"
 #    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install"
 # PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install
-RUN echo "export PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" >> /root/.bashrc
-RUN echo $PATH
+
 # Install couchbase
 RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
     echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - && \
@@ -61,12 +60,12 @@ RUN wget -N $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE && \
 # Please look at http://bit.ly/1ZAcLjD as for how to PERMANENTLY alter this setting.
 # RUN echo never > /sys/kernel/mm/transparent_hugepage/enabled
 # Ubuntu disabling transparent hugepages
-### RUN echo kernel/mm/transparent_hugepage/enabled = never > /etc/sysfs.conf
+RUN echo kernel/mm/transparent_hugepage/enabled = never > /etc/sysfs.conf
 # Warning: Swappiness is not set to 0.
 # Please look at http://bit.ly/1k2CtNn as for how to PERMANENTLY alter this setting.
 # RUN sysctl vm.swappiness=0 && echo "vm.swappiness = 0" >> /etc/sysctl.conf
 # Ubuntu set swappiness 0
-### RUN echo 'vm.swappiness = 0' >> /etc/sysctl.conf
+RUN echo 'vm.swappiness = 0' >> /etc/sysctl.conf
 # Add runit script for couchbase-server
 # RUN touch /etc/service/couchbase-server/run
 COPY scripts/run /etc/service/couchbase-server/run
@@ -74,13 +73,14 @@ COPY scripts/run /etc/service/couchbase-server/run
 # Add dummy script for commands invoked by cbcollect_info that
 # make no sense in a Docker container
 COPY scripts/dummy.sh /usr/local/bin/
-RUN ln -s dummy.sh /usr/local/bin/iptables-save && \
-    ln -s dummy.sh /usr/local/bin/lvdisplay && \
-    ln -s dummy.sh /usr/local/bin/vgdisplay && \
-    ln -s dummy.sh /usr/local/bin/pvdisplay
-
+RUN ln -s dummy.sh /usr/local/bin/iptables-save \
+ && ln -s dummy.sh /usr/local/bin/lvdisplay \
+ && ln -s dummy.sh /usr/local/bin/vgdisplay \
+ && ln -s dummy.sh /usr/local/bin/pvdisplay \
+ && echo "export PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" >> /root/.bashrc \
+ && /root/.bashrc && echo $PATH \
 # Fix curl RPATH
-RUN chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
+ && chrpath -r '$ORIGIN/../lib' /opt/couchbase/bin/curl
 
 # 8091: Couchbase Web console, REST/HTTP interface
 # 8092: Views, queries, XDCR
