@@ -47,7 +47,7 @@ ENV CB_VERSION="4.5.0" \
     CB_RELEASE_URL="http://packages.couchbase.com/releases" \
     CB_PACKAGE="couchbase-server-community_4.5.0-ubuntu14.04_amd64.deb" \
     CB_SHA256="7682b2c90717ba790b729341e32ce5a43f7eacb5279f48f47aae165c0ec3a633" \
-    LD_LIBRARY_PATH=":/opt/couchbase/lib" \
+    LD_LIBRARY_PATH=":/opt/couchbase/lib"
 # ENV PATH $PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install
 RUN export PATH=$PATH:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install
 #     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/couchbase/bin:/opt/couchbase/bin/tools:/opt/couchbase/bin/install" \
